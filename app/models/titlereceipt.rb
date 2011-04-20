@@ -15,4 +15,11 @@
 #
 
 class Titlereceipt < ActiveRecord::Base
+  
+  #PO is not being generated right now
+  #validates :po_no,             :presence => true
+  
+  validates :invoice_no,        :presence => true
+  validates :isbn,              :presence => true
+  validates :box_no,            :presence => true
 end
