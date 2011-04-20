@@ -1,0 +1,29 @@
+<%= form_for(@billitem) do |f| %>
+  <% if @billitem.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@billitem.errors.count, "error") %> prohibited this billitem from being saved:</h2>
+
+      <ul>
+      <% @billitem.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :isbn %><br />
+    <%= f.text_field :isbn %>
+  </div>
+  <div class="field">
+    <%= f.label :title %><br />
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
+    <%= f.label :mrp %><br />
+    <%= f.text_field :mrp %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

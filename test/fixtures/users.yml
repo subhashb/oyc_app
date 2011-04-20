@@ -1,12 +1,15 @@
 # == Schema Information
-# Schema version: 20110420043817
+# Schema version: 20110420095621
 #
 # Table name: users
 #
 #  id                   :integer(38)     not null, primary key
+#  username             :string(255)
 #  email                :string(255)     default(""), not null
-#  encrypted_password   :string(128)     default(""), not null
+#  encrypted_password   :string(128)     default("")
+#  password_salt        :string(255)     default("")
 #  reset_password_token :string(255)
+#  remember_token       :string(255)
 #  remember_created_at  :datetime
 #  sign_in_count        :integer(38)     default(0)
 #  current_sign_in_at   :datetime
@@ -15,7 +18,6 @@
 #  last_sign_in_ip      :string(255)
 #  created_at           :datetime
 #  updated_at           :datetime
-#  username             :string(255)
 #
 
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html

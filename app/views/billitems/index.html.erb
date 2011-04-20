@@ -1,0 +1,27 @@
+<h1>Listing billitems</h1>
+
+<table>
+  <tr>
+    <th>Isbn</th>
+    <th>Title</th>
+    <th>Mrp</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @billitems.each do |billitem| %>
+  <tr>
+    <td><%= billitem.isbn %></td>
+    <td><%= billitem.title %></td>
+    <td><%= billitem.mrp %></td>
+    <td><%= link_to 'Show', billitem %></td>
+    <td><%= link_to 'Edit', edit_billitem_path(billitem) %></td>
+    <td><%= link_to 'Destroy', billitem, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Billitem', new_billitem_path %>

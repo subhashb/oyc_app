@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Isbn:</b>
+  <%= @billitem.isbn %>
+</p>
+
+<p>
+  <b>Title:</b>
+  <%= @billitem.title %>
+</p>
+
+<p>
+  <b>Mrp:</b>
+  <%= @billitem.mrp %>
+</p>
+
+
+<%= link_to 'Edit', edit_billitem_path(@billitem) %> |
+<%= link_to 'Back', billitems_path %>

@@ -1,4 +1,8 @@
 OycApp::Application.routes.draw do
+  resources :billitems
+
+  resources :bills
+
   resources :invoices
 
   resources :titlereceipts

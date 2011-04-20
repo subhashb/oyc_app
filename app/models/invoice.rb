@@ -26,5 +26,5 @@
 #
 
 class Invoice < ActiveRecord::Base
-  belongs_to supplier
+  belongs_to :supplier
 end

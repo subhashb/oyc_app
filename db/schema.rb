@@ -10,7 +10,23 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110420075940) do
+ActiveRecord::Schema.define(:version => 20110420095621) do
+
+  create_table "billitems", :force => true do |t|
+    t.string   "isbn"
+    t.string   "title"
+    t.decimal  "mrp"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "bills", :force => true do |t|
+    t.datetime "date_of_billing"
+    t.decimal  "amount"
+    t.integer  "quantity",        :precision => 38, :scale => 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "invoices", :force => true do |t|
     t.string   "invoice_no",                                                      :null => false
@@ -48,5 +64,6 @@ ActiveRecord::Schema.define(:version => 20110420075940) do
   add_synonym "authentications", "authentications@link_opac", :force => true
   add_synonym "users", "users@link_opac", :force => true
   add_synonym "users_seq", "users_seq@link_opac", :force => true
+  add_synonym "suppliers", "suppliers@link_ams", :force => true
 
 end
