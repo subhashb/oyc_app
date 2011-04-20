@@ -40,15 +40,28 @@ class TitlereceiptsController < ApplicationController
   # POST /titlereceipts
   # POST /titlereceipts.xml
   def create
-    @titlereceipt = Titlereceipt.new(params[:titlereceipt])
+    @titlereceipt = Titlereceipt.new
+    @titlereceipt.isbn  = params[:titlereceipt][:isbn]
+    @titlereceipt.created_by = params[:titlereceipt][:user_id]
+    @titlereceipt.modified_by = params[:titlereceipt][:user_id]
+    @titlereceipt.invoice_no = Invoice.find_by_supplier_id_and_isbn(params[:titlereceipt][:supplier_id],@titlereceipt.isbn).invoice_no
 
     respond_to do |format|
       if @titlereceipt.save
         format.html { redirect_to(@titlereceipt, :notice => 'Titlereceipt was successfully created.') }
-        format.xml  { render :xml => @titlereceipt, :status => :created, :location => @titlereceipt }
+        format.xml
       else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @titlereceipt.errors, :status => :unprocessable_entity }
+        #TODO - is there a better way of doing this??
+        if @titlereceipt.errors[:isbn].first && @titlereceipt.errors[:isbn].first.include?("quantity")
+          flash[:error] = "Order quantity exceeded!"
+          format.html { render :new }
+          format.xml { render :xml => @titlereceipt, :status => :precondition_failed }
+        else
+          flash[:error] = "Validations failed!"
+          puts @titlereceipt.errors.to_s
+          format.html { render :new }
+          format.xml { render :xml => @titlereceipt, :status => :not_found }
+        end
       end
     end
   end

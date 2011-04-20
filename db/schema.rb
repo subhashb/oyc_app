@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110420095621) do
+ActiveRecord::Schema.define(:version => 20110420114115) do
 
   create_table "billitems", :force => true do |t|
     t.string   "isbn"
@@ -29,20 +29,20 @@ ActiveRecord::Schema.define(:version => 20110420095621) do
   end
 
   create_table "invoices", :force => true do |t|
-    t.string   "invoice_no",                                                      :null => false
+    t.string   "invoice_no",                                                    :null => false
     t.datetime "date_of_invoice"
-    t.string   "isbn",                                                            :null => false
-    t.string   "title",                                                           :null => false
-    t.string   "publisher",                                                       :null => false
+    t.string   "isbn",                                                          :null => false
+    t.string   "title",                                                         :null => false
+    t.string   "publisher",                                                     :null => false
     t.string   "author"
-    t.integer  "quantity",        :precision => 38, :scale => 0,                  :null => false
-    t.decimal  "grossamt",                                                        :null => false
+    t.integer  "quantity",        :precision => 38, :scale => 0,                :null => false
+    t.decimal  "grossamt",                                                      :null => false
     t.string   "currency"
     t.decimal  "conv_rate"
     t.decimal  "discount"
     t.decimal  "netamt"
-    t.string   "received_cnt",                                   :default => "0"
-    t.string   "sold_cnt",                                       :default => "0"
+    t.integer  "received_cnt",    :precision => 38, :scale => 0, :default => 0
+    t.integer  "sold_cnt",        :precision => 38, :scale => 0, :default => 0
     t.integer  "created_by",      :precision => 38, :scale => 0
     t.integer  "updated_by",      :precision => 38, :scale => 0
     t.datetime "created_at"
@@ -54,7 +54,6 @@ ActiveRecord::Schema.define(:version => 20110420095621) do
     t.string   "po_no"
     t.string   "invoice_no"
     t.string   "isbn"
-    t.integer  "box_no",      :precision => 38, :scale => 0
     t.integer  "created_by",  :precision => 38, :scale => 0
     t.integer  "modified_by", :precision => 38, :scale => 0
     t.datetime "created_at"

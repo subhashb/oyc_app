@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110420075940
+# Schema version: 20110420103932
 #
 # Table name: invoices
 #
@@ -16,8 +16,8 @@
 #  conv_rate       :decimal(, )
 #  discount        :decimal(, )
 #  netamt          :decimal(, )
-#  received_cnt    :string(255)     default("0")
-#  sold_cnt        :string(255)     default("0")
+#  received_cnt    :integer(38)     default(0)
+#  sold_cnt        :integer(38)     default(0)
 #  created_by      :integer(38)
 #  updated_by      :integer(38)
 #  created_at      :datetime
