@@ -1,0 +1,85 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Invoice no:</b>
+  <%= @invoice.invoice_no %>
+</p>
+
+<p>
+  <b>Date of invoice:</b>
+  <%= @invoice.date_of_invoice %>
+</p>
+
+<p>
+  <b>Isbn:</b>
+  <%= @invoice.isbn %>
+</p>
+
+<p>
+  <b>Title:</b>
+  <%= @invoice.title %>
+</p>
+
+<p>
+  <b>Publisher:</b>
+  <%= @invoice.publisher %>
+</p>
+
+<p>
+  <b>Author:</b>
+  <%= @invoice.author %>
+</p>
+
+<p>
+  <b>Quantity:</b>
+  <%= @invoice.quantity %>
+</p>
+
+<p>
+  <b>Grossamt:</b>
+  <%= @invoice.grossamt %>
+</p>
+
+<p>
+  <b>Currency:</b>
+  <%= @invoice.currency %>
+</p>
+
+<p>
+  <b>Conv rate:</b>
+  <%= @invoice.conv_rate %>
+</p>
+
+<p>
+  <b>Discount:</b>
+  <%= @invoice.discount %>
+</p>
+
+<p>
+  <b>Netamt:</b>
+  <%= @invoice.netamt %>
+</p>
+
+<p>
+  <b>Received cnt:</b>
+  <%= @invoice.received_cnt %>
+</p>
+
+<p>
+  <b>Sold cnt:</b>
+  <%= @invoice.sold_cnt %>
+</p>
+
+<p>
+  <b>Created by:</b>
+  <%= @invoice.created_by %>
+</p>
+
+<p>
+  <b>Updated by:</b>
+  <%= @invoice.updated_by %>
+</p>
+
+
+<%= link_to 'Edit', edit_invoice_path(@invoice) %> |
+<%= link_to 'Back', invoices_path %>

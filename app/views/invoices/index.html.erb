@@ -1,0 +1,53 @@
+<h1>Listing invoices</h1>
+
+<table>
+  <tr>
+    <th>Invoice no</th>
+    <th>Date of invoice</th>
+    <th>Isbn</th>
+    <th>Title</th>
+    <th>Publisher</th>
+    <th>Author</th>
+    <th>Quantity</th>
+    <th>Grossamt</th>
+    <th>Currency</th>
+    <th>Conv rate</th>
+    <th>Discount</th>
+    <th>Netamt</th>
+    <th>Received cnt</th>
+    <th>Sold cnt</th>
+    <th>Created by</th>
+    <th>Updated by</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @invoices.each do |invoice| %>
+  <tr>
+    <td><%= invoice.invoice_no %></td>
+    <td><%= invoice.date_of_invoice %></td>
+    <td><%= invoice.isbn %></td>
+    <td><%= invoice.title %></td>
+    <td><%= invoice.publisher %></td>
+    <td><%= invoice.author %></td>
+    <td><%= invoice.quantity %></td>
+    <td><%= invoice.grossamt %></td>
+    <td><%= invoice.currency %></td>
+    <td><%= invoice.conv_rate %></td>
+    <td><%= invoice.discount %></td>
+    <td><%= invoice.netamt %></td>
+    <td><%= invoice.received_cnt %></td>
+    <td><%= invoice.sold_cnt %></td>
+    <td><%= invoice.created_by %></td>
+    <td><%= invoice.updated_by %></td>
+    <td><%= link_to 'Show', invoice %></td>
+    <td><%= link_to 'Edit', edit_invoice_path(invoice) %></td>
+    <td><%= link_to 'Destroy', invoice, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Invoice', new_invoice_path %>

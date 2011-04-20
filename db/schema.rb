@@ -10,14 +10,28 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110420043817) do
+ActiveRecord::Schema.define(:version => 20110420075940) do
 
-  create_table "authentications", :force => true do |t|
-    t.integer  "user_id",    :precision => 38, :scale => 0
-    t.string   "provider"
-    t.string   "uid"
+  create_table "invoices", :force => true do |t|
+    t.string   "invoice_no",                                                      :null => false
+    t.datetime "date_of_invoice"
+    t.string   "isbn",                                                            :null => false
+    t.string   "title",                                                           :null => false
+    t.string   "publisher",                                                       :null => false
+    t.string   "author"
+    t.integer  "quantity",        :precision => 38, :scale => 0,                  :null => false
+    t.decimal  "grossamt",                                                        :null => false
+    t.string   "currency"
+    t.decimal  "conv_rate"
+    t.decimal  "discount"
+    t.decimal  "netamt"
+    t.string   "received_cnt",                                   :default => "0"
+    t.string   "sold_cnt",                                       :default => "0"
+    t.integer  "created_by",      :precision => 38, :scale => 0
+    t.integer  "updated_by",      :precision => 38, :scale => 0
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "supplier_id",     :precision => 38, :scale => 0
   end
 
   create_table "titlereceipts", :force => true do |t|
@@ -31,22 +45,8 @@ ActiveRecord::Schema.define(:version => 20110420043817) do
     t.datetime "updated_at"
   end
 
-  create_table "users", :force => true do |t|
-    t.string   "email",                                                              :default => "", :null => false
-    t.string   "encrypted_password",   :limit => 128,                                :default => "", :null => false
-    t.string   "reset_password_token"
-    t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                       :precision => 38, :scale => 0, :default => 0
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "username"
-  end
-
-  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
-  add_index "users", ["reset_password_token"], :name => "i_users_reset_password_token", :unique => true
+  add_synonym "authentications", "authentications@link_opac", :force => true
+  add_synonym "users", "users@link_opac", :force => true
+  add_synonym "users_seq", "users_seq@link_opac", :force => true
 
 end

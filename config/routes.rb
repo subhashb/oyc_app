@@ -1,4 +1,6 @@
 OycApp::Application.routes.draw do
+  resources :invoices
+
   resources :titlereceipts
 
   match '/dashboard' => 'dashboard#show'
