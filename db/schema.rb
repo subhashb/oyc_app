@@ -10,12 +10,23 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110419133059) do
+ActiveRecord::Schema.define(:version => 20110420043817) do
 
   create_table "authentications", :force => true do |t|
     t.integer  "user_id",    :precision => 38, :scale => 0
     t.string   "provider"
     t.string   "uid"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "titlereceipts", :force => true do |t|
+    t.string   "po_no"
+    t.string   "invoice_no"
+    t.string   "isbn"
+    t.integer  "box_no",      :precision => 38, :scale => 0
+    t.integer  "created_by",  :precision => 38, :scale => 0
+    t.integer  "modified_by", :precision => 38, :scale => 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end

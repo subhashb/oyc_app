@@ -1,0 +1,33 @@
+<h1>Listing titlereceipts</h1>
+
+<table>
+  <tr>
+    <th>Po no</th>
+    <th>Invoice no</th>
+    <th>Isbn</th>
+    <th>Box no</th>
+    <th>Created by</th>
+    <th>Modified by</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @titlereceipts.each do |titlereceipt| %>
+  <tr>
+    <td><%= titlereceipt.po_no %></td>
+    <td><%= titlereceipt.invoice_no %></td>
+    <td><%= titlereceipt.isbn %></td>
+    <td><%= titlereceipt.box_no %></td>
+    <td><%= titlereceipt.created_by %></td>
+    <td><%= titlereceipt.modified_by %></td>
+    <td><%= link_to 'Show', titlereceipt %></td>
+    <td><%= link_to 'Edit', edit_titlereceipt_path(titlereceipt) %></td>
+    <td><%= link_to 'Destroy', titlereceipt, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Titlereceipt', new_titlereceipt_path %>

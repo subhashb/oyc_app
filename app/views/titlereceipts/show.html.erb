@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Po no:</b>
+  <%= @titlereceipt.po_no %>
+</p>
+
+<p>
+  <b>Invoice no:</b>
+  <%= @titlereceipt.invoice_no %>
+</p>
+
+<p>
+  <b>Isbn:</b>
+  <%= @titlereceipt.isbn %>
+</p>
+
+<p>
+  <b>Box no:</b>
+  <%= @titlereceipt.box_no %>
+</p>
+
+<p>
+  <b>Created by:</b>
+  <%= @titlereceipt.created_by %>
+</p>
+
+<p>
+  <b>Modified by:</b>
+  <%= @titlereceipt.modified_by %>
+</p>
+
+
+<%= link_to 'Edit', edit_titlereceipt_path(@titlereceipt) %> |
+<%= link_to 'Back', titlereceipts_path %>

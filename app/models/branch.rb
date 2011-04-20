@@ -1,3 +1,20 @@
+# == Schema Information
+# Schema version: 20110420043817
+#
+# Table name: branches
+#
+#  id          :decimal(, )     primary key
+#  name        :string(298)
+#  address     :string(1000)
+#  city        :string(50)
+#  phone       :string(255)
+#  email       :string(100)
+#  category    :string(1)       not null
+#  parent_id   :decimal(, )
+#  parent_name :string(255)
+#  card_id     :string(16)
+#
+
 class Branch < ActiveRecord::Base
   has_and_belongs_to_many :plans
   has_and_belongs_to_many :coupons
