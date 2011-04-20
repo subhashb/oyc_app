@@ -13,7 +13,6 @@ gem 'omniauth'
 
 #oracle
 gem 'activerecord-oracle_enhanced-adapter'
-gem 'ruby-oci8'
 
 group :development do
   gem 'rspec-rails'
