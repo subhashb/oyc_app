@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110420114115) do
+ActiveRecord::Schema.define(:version => 20110420145554) do
 
   create_table "billitems", :force => true do |t|
     t.string   "isbn"
@@ -58,6 +58,8 @@ ActiveRecord::Schema.define(:version => 20110420114115) do
     t.integer  "modified_by", :precision => 38, :scale => 0
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "invoice_id",  :precision => 38, :scale => 0
+    t.integer  "box_no",      :precision => 38, :scale => 0
   end
 
   add_synonym "authentications", "authentications@link_opac", :force => true

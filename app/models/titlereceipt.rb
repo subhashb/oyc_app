@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110420114115
+# Schema version: 20110420145554
 #
 # Table name: titlereceipts
 #
@@ -11,12 +11,15 @@
 #  modified_by :integer(38)
 #  created_at  :datetime
 #  updated_at  :datetime
+#  invoice_id  :integer(38)
+#  box_no      :integer(38)
 #
 
 class Titlereceipt < ActiveRecord::Base
   #validates :po_no,             :presence => true          #PO is not being generated right now
   validates :invoice_no,        :presence => true
   validates :isbn,              :presence => true
+  validates :box_no,            :presence => true
   
   validate :invoice_no_should_exist
   validate :isbn_should_be_part_of_invoice
@@ -60,5 +63,7 @@ class Titlereceipt < ActiveRecord::Base
       item = Invoice.find_by_invoice_no_and_isbn(invoice_no, isbn)
       item.received_cnt = item.received_cnt + 1
       item.save
+      
+      self.invoice_id = item.id
     end
 end
