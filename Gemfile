@@ -5,11 +5,28 @@ gem 'rails', '3.0.3'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
+gem 'will_paginate', '~> 3.0.pre2'
+
+#security
 gem 'devise'
 gem 'omniauth'
 
+#oracle
 gem 'activerecord-oracle_enhanced-adapter'
 gem 'ruby-oci8'
+
+group :development do
+  gem 'rspec-rails'
+  gem 'annotate-models', '1.0.4'
+end
+
+group :test do
+  gem 'rspec'
+  gem 'spork', '0.8.4'
+  gem 'webrat', '0.7.1'
+  gem 'factory_girl_rails', '1.0'
+end
+
 
 # Use unicorn as the web server
 # gem 'unicorn'
