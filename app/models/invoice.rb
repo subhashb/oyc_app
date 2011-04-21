@@ -26,5 +26,13 @@
 #
 
 class Invoice < ActiveRecord::Base
-  belongs_to :supplier
+  belongs_to  :supplier
+  has_many    :billitems
+  has_many    :titlereceipts
+  
+  scope :next_to_sell, lambda { |isbn|
+      where("isbn = :isbn AND sold_cnt<received_cnt", {:isbn => isbn}).
+      order(:id).
+      limit(1)
+    }
 end

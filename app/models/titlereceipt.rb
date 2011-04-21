@@ -16,6 +16,8 @@
 #
 
 class Titlereceipt < ActiveRecord::Base
+  belongs_to :invoice
+  
   #validates :po_no,             :presence => true          #PO is not being generated right now
   validates :invoice_no,        :presence => true
   validates :isbn,              :presence => true

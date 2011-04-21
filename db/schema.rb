@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110420145554) do
+ActiveRecord::Schema.define(:version => 20110421045221) do
 
   create_table "billitems", :force => true do |t|
     t.string   "isbn"
@@ -18,6 +18,8 @@ ActiveRecord::Schema.define(:version => 20110420145554) do
     t.decimal  "mrp"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "invoice_id", :precision => 38, :scale => 0
+    t.integer  "bill_id",    :precision => 38, :scale => 0
   end
 
   create_table "bills", :force => true do |t|
@@ -26,6 +28,8 @@ ActiveRecord::Schema.define(:version => 20110420145554) do
     t.integer  "quantity",        :precision => 38, :scale => 0
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "created_by",      :precision => 38, :scale => 0
+    t.integer  "updated_by",      :precision => 38, :scale => 0
   end
 
   create_table "invoices", :force => true do |t|

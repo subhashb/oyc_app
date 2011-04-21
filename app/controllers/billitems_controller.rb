@@ -40,15 +40,25 @@ class BillitemsController < ApplicationController
   # POST /billitems
   # POST /billitems.xml
   def create
-    @billitem = Billitem.new(params[:billitem])
+    @billitem = Billitem.new
+    @billitem.isbn = params[:billitem][:isbn]
 
     respond_to do |format|
       if @billitem.save
         format.html { redirect_to(@billitem, :notice => 'Billitem was successfully created.') }
-        format.xml  { render :xml => @billitem, :status => :created, :location => @billitem }
+        format.xml 
       else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @billitem.errors, :status => :unprocessable_entity }
+        #TODO - is there a better way of doing this??
+        if @billitem.errors[:isbn].first && @billitem.errors[:isbn].first.include?("sold out")
+          flash[:error] = "Order quantity exceeded!"
+          format.html { render :new }
+          format.xml { render :xml => @billitem, :status => :precondition_failed }
+        else
+          flash[:error] = "Validations failed!"
+          puts @billitem.errors.to_s
+          format.html { render :new }
+          format.xml { render :xml => @billitem, :status => :not_found }
+        end
       end
     end
   end

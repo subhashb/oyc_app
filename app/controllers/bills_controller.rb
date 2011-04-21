@@ -40,12 +40,12 @@ class BillsController < ApplicationController
   # POST /bills
   # POST /bills.xml
   def create
-    @bill = Bill.new(params[:bill])
+    @bill = Bill.new
 
     respond_to do |format|
       if @bill.save
         format.html { redirect_to(@bill, :notice => 'Bill was successfully created.') }
-        format.xml  { render :xml => @bill, :status => :created, :location => @bill }
+        format.xml
       else
         format.html { render :action => "new" }
         format.xml  { render :xml => @bill.errors, :status => :unprocessable_entity }
