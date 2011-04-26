@@ -1,0 +1,73 @@
+<%= form_for(@title) do |f| %>
+  <% if @title.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@title.errors.count, "error") %> prohibited this title from being saved:</h2>
+
+      <ul>
+      <% @title.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :isbn %><br />
+    <%= f.text_field :isbn %>
+  </div>
+  <div class="field">
+    <%= f.label :title %><br />
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
+    <%= f.label :publisher %><br />
+    <%= f.text_field :publisher %>
+  </div>
+  <div class="field">
+    <%= f.label :author %><br />
+    <%= f.text_field :author %>
+  </div>
+  <div class="field">
+    <%= f.label :grossamt %><br />
+    <%= f.text_field :grossamt %>
+  </div>
+  <div class="field">
+    <%= f.label :currency %><br />
+    <%= f.text_field :currency %>
+  </div>
+  <div class="field">
+    <%= f.label :conv_rate %><br />
+    <%= f.text_field :conv_rate %>
+  </div>
+  <div class="field">
+    <%= f.label :discount %><br />
+    <%= f.text_field :discount %>
+  </div>
+  <div class="field">
+    <%= f.label :netamt %><br />
+    <%= f.text_field :netamt %>
+  </div>
+  <div class="field">
+    <%= f.label :bookfair_id %><br />
+    <%= f.text_field :bookfair_id %>
+  </div>
+  <div class="field">
+    <%= f.label :copies_cnt %><br />
+    <%= f.text_field :copies_cnt %>
+  </div>
+  <div class="field">
+    <%= f.label :sold_cnt %><br />
+    <%= f.text_field :sold_cnt %>
+  </div>
+  <div class="field">
+    <%= f.label :created_by %><br />
+    <%= f.text_field :created_by %>
+  </div>
+  <div class="field">
+    <%= f.label :modified_by %><br />
+    <%= f.text_field :modified_by %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

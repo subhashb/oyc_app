@@ -1,0 +1,33 @@
+<%= form_for(@stockaudititem) do |f| %>
+  <% if @stockaudititem.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@stockaudititem.errors.count, "error") %> prohibited this stockaudititem from being saved:</h2>
+
+      <ul>
+      <% @stockaudititem.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :bookfair_id %><br />
+    <%= f.text_field :bookfair_id %>
+  </div>
+  <div class="field">
+    <%= f.label :isbn %><br />
+    <%= f.text_field :isbn %>
+  </div>
+  <div class="field">
+    <%= f.label :created_by %><br />
+    <%= f.text_field :created_by %>
+  </div>
+  <div class="field">
+    <%= f.label :modified_by %><br />
+    <%= f.text_field :modified_by %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

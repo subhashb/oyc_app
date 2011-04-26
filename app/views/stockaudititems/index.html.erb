@@ -1,0 +1,29 @@
+<h1>Listing stockaudititems</h1>
+
+<table>
+  <tr>
+    <th>Bookfair</th>
+    <th>Isbn</th>
+    <th>Created by</th>
+    <th>Modified by</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @stockaudititems.each do |stockaudititem| %>
+  <tr>
+    <td><%= stockaudititem.bookfair_id %></td>
+    <td><%= stockaudititem.isbn %></td>
+    <td><%= stockaudititem.created_by %></td>
+    <td><%= stockaudititem.modified_by %></td>
+    <td><%= link_to 'Show', stockaudititem %></td>
+    <td><%= link_to 'Edit', edit_stockaudititem_path(stockaudititem) %></td>
+    <td><%= link_to 'Destroy', stockaudititem, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Stockaudititem', new_stockaudititem_path %>

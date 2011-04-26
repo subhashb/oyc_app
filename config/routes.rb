@@ -1,4 +1,10 @@
 OycApp::Application.routes.draw do
+  resources :titles
+
+  resources :stockaudititems
+
+  resources :bookfairs
+
   resources :billitems
 
   resources :bills

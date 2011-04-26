@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @bookfair.name %>
+</p>
+
+<p>
+  <b>Start date:</b>
+  <%= @bookfair.start_date %>
+</p>
+
+<p>
+  <b>End date:</b>
+  <%= @bookfair.end_date %>
+</p>
+
+<p>
+  <b>Created by:</b>
+  <%= @bookfair.created_by %>
+</p>
+
+<p>
+  <b>Updated by:</b>
+  <%= @bookfair.updated_by %>
+</p>
+
+
+<%= link_to 'Edit', edit_bookfair_path(@bookfair) %> |
+<%= link_to 'Back', bookfairs_path %>

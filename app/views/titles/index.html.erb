@@ -1,0 +1,49 @@
+<h1>Listing titles</h1>
+
+<table>
+  <tr>
+    <th>Isbn</th>
+    <th>Title</th>
+    <th>Publisher</th>
+    <th>Author</th>
+    <th>Grossamt</th>
+    <th>Currency</th>
+    <th>Conv rate</th>
+    <th>Discount</th>
+    <th>Netamt</th>
+    <th>Bookfair</th>
+    <th>Copies cnt</th>
+    <th>Sold cnt</th>
+    <th>Created by</th>
+    <th>Modified by</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @titles.each do |title| %>
+  <tr>
+    <td><%= title.isbn %></td>
+    <td><%= title.title %></td>
+    <td><%= title.publisher %></td>
+    <td><%= title.author %></td>
+    <td><%= title.grossamt %></td>
+    <td><%= title.currency %></td>
+    <td><%= title.conv_rate %></td>
+    <td><%= title.discount %></td>
+    <td><%= title.netamt %></td>
+    <td><%= title.bookfair_id %></td>
+    <td><%= title.copies_cnt %></td>
+    <td><%= title.sold_cnt %></td>
+    <td><%= title.created_by %></td>
+    <td><%= title.modified_by %></td>
+    <td><%= link_to 'Show', title %></td>
+    <td><%= link_to 'Edit', edit_title_path(title) %></td>
+    <td><%= link_to 'Destroy', title, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Title', new_title_path %>

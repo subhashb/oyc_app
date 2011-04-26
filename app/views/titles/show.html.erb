@@ -1,0 +1,75 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Isbn:</b>
+  <%= @title.isbn %>
+</p>
+
+<p>
+  <b>Title:</b>
+  <%= @title.title %>
+</p>
+
+<p>
+  <b>Publisher:</b>
+  <%= @title.publisher %>
+</p>
+
+<p>
+  <b>Author:</b>
+  <%= @title.author %>
+</p>
+
+<p>
+  <b>Grossamt:</b>
+  <%= @title.grossamt %>
+</p>
+
+<p>
+  <b>Currency:</b>
+  <%= @title.currency %>
+</p>
+
+<p>
+  <b>Conv rate:</b>
+  <%= @title.conv_rate %>
+</p>
+
+<p>
+  <b>Discount:</b>
+  <%= @title.discount %>
+</p>
+
+<p>
+  <b>Netamt:</b>
+  <%= @title.netamt %>
+</p>
+
+<p>
+  <b>Bookfair:</b>
+  <%= @title.bookfair_id %>
+</p>
+
+<p>
+  <b>Copies cnt:</b>
+  <%= @title.copies_cnt %>
+</p>
+
+<p>
+  <b>Sold cnt:</b>
+  <%= @title.sold_cnt %>
+</p>
+
+<p>
+  <b>Created by:</b>
+  <%= @title.created_by %>
+</p>
+
+<p>
+  <b>Modified by:</b>
+  <%= @title.modified_by %>
+</p>
+
+
+<%= link_to 'Edit', edit_title_path(@title) %> |
+<%= link_to 'Back', titles_path %>

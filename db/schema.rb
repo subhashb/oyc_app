@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110421045221) do
+ActiveRecord::Schema.define(:version => 20110426071048) do
 
   create_table "billitems", :force => true do |t|
     t.string   "isbn"
@@ -30,6 +30,16 @@ ActiveRecord::Schema.define(:version => 20110421045221) do
     t.datetime "updated_at"
     t.integer  "created_by",      :precision => 38, :scale => 0
     t.integer  "updated_by",      :precision => 38, :scale => 0
+  end
+
+  create_table "bookfairs", :force => true do |t|
+    t.string   "name"
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.integer  "created_by", :precision => 38, :scale => 0
+    t.integer  "updated_by", :precision => 38, :scale => 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "invoices", :force => true do |t|
@@ -54,6 +64,15 @@ ActiveRecord::Schema.define(:version => 20110421045221) do
     t.integer  "supplier_id",     :precision => 38, :scale => 0
   end
 
+  create_table "stockaudititems", :force => true do |t|
+    t.integer  "bookfair_id", :precision => 38, :scale => 0
+    t.string   "isbn"
+    t.integer  "created_by",  :precision => 38, :scale => 0
+    t.integer  "modified_by", :precision => 38, :scale => 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "titlereceipts", :force => true do |t|
     t.string   "po_no"
     t.string   "invoice_no"
@@ -64,6 +83,25 @@ ActiveRecord::Schema.define(:version => 20110421045221) do
     t.datetime "updated_at"
     t.integer  "invoice_id",  :precision => 38, :scale => 0
     t.integer  "box_no",      :precision => 38, :scale => 0
+  end
+
+  create_table "titles", :force => true do |t|
+    t.string   "isbn"
+    t.string   "title"
+    t.string   "publisher"
+    t.string   "author"
+    t.decimal  "grossamt"
+    t.string   "currency"
+    t.decimal  "conv_rate"
+    t.decimal  "discount"
+    t.decimal  "netamt"
+    t.integer  "bookfair_id", :precision => 38, :scale => 0
+    t.integer  "copies_cnt",  :precision => 38, :scale => 0
+    t.integer  "sold_cnt",    :precision => 38, :scale => 0
+    t.integer  "created_by",  :precision => 38, :scale => 0
+    t.integer  "modified_by", :precision => 38, :scale => 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_synonym "authentications", "authentications@link_opac", :force => true
