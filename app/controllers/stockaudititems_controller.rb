@@ -45,10 +45,10 @@ class StockaudititemsController < ApplicationController
     respond_to do |format|
       if @stockaudititem.save
         format.html { redirect_to(@stockaudititem, :notice => 'Stockaudititem was successfully created.') }
-        format.xml  { render :xml => @stockaudititem, :status => :created, :location => @stockaudititem }
+        format.xml
       else
         format.html { render :action => "new" }
-        format.xml  { render :xml => @stockaudititem.errors, :status => :unprocessable_entity }
+        format.xml { render :xml => @stockaudititem, :status => :not_found }
       end
     end
   end

@@ -40,7 +40,7 @@ class BillsController < ApplicationController
   # POST /bills
   # POST /bills.xml
   def create
-    @bill = Bill.new
+    @bill = Bill.new(params[:bill])
 
     respond_to do |format|
       if @bill.save

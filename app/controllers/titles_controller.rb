@@ -80,4 +80,13 @@ class TitlesController < ApplicationController
       format.xml  { head :ok }
     end
   end
+  
+  def fetch_by_isbn
+    @title = Title.find_by_isbn(params[:isbn])
+    
+    respond_to do |format|
+      format.html # show.html.erb
+      format.xml  { render :xml => @title, :dasherize => false }
+    end
+  end
 end

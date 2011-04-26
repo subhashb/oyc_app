@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110426071048
+# Schema version: 20110426120952
 #
 # Table name: bookfairs
 #
@@ -11,7 +11,16 @@
 #  updated_by :integer(38)
 #  created_at :datetime
 #  updated_at :datetime
+#  active     :string(255)
 #
 
 class Bookfair < ActiveRecord::Base
+  scope :active, where(:active => 'Y')
+  
+  before_save :set_defaults
+  
+  private
+    def set_defaults
+      self.active = 'Y'
+    end
 end

@@ -13,4 +13,6 @@
 #
 
 class Stockaudititem < ActiveRecord::Base
+  validates :isbn,              :presence => true
+  validates :bookfair_id,       :presence => true
 end

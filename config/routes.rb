@@ -1,17 +1,15 @@
 OycApp::Application.routes.draw do
   resources :titles
-
   resources :stockaudititems
-
-  resources :bookfairs
-
+  resources :bookfairs do
+    get 'active', :on => :collection
+  end
   resources :billitems
-
   resources :bills
-
   resources :invoices
-
   resources :titlereceipts
+  
+  match 'titles/fetch_by_isbn/:isbn' => 'titles#fetch_by_isbn'
 
   match '/dashboard' => 'dashboard#show'
 

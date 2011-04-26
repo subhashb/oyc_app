@@ -80,4 +80,13 @@ class BookfairsController < ApplicationController
       format.xml  { head :ok }
     end
   end
+  
+  def active
+    @bookfairs = Bookfair.active
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.xml
+    end
+  end
 end

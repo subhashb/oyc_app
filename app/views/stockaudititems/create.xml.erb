@@ -1,0 +1,12 @@
+<stockaudititem>
+  <isbn><%= @stockaudititem.isbn %></isbn>
+  <title><%= title_of_isbn(@stockaudititem.isbn) %></title>
+  <% if @stockaudititem.errors %>
+    <errors>
+      <% @stockaudititem.errors.full_messages.each do |msg| %>
+        <message><%= msg %></message>
+      <% end %>
+    </errors>
+  <% end %>
+</stockaudititem>
+
