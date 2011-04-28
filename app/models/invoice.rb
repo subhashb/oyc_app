@@ -35,4 +35,7 @@ class Invoice < ActiveRecord::Base
       limit(1)
     }  
   scope :distinct_suppliers, :select => "DISTINCT supplier_id"
+  scope :of_supplier, lambda { |supplier_id|
+      where(:supplier_id => supplier_id)
+    }
 end

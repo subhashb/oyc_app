@@ -6,10 +6,11 @@ OycApp::Application.routes.draw do
   end
   resources :billitems
   resources :bills
-  resources :invoices
-  resources :titlereceipts do
-    get 'suppliers', :on => :collection
+  resources :invoices do
+    get 'fetch_suppliers', :on => :collection
+    get 'fetch_invoices_for_supplier', :on => :collection
   end
+  resources :titlereceipts
   
   match 'titles/fetch_by_isbn/:isbn' => 'titles#fetch_by_isbn'
 

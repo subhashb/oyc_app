@@ -80,4 +80,22 @@ class InvoicesController < ApplicationController
       format.xml  { head :ok }
     end
   end
+  
+  def fetch_suppliers
+    @suppliers = Supplier.in_invoices
+    
+    respond_to do |format|
+      format.html # index.html.erb
+      format.xml
+    end
+  end
+  
+  def fetch_invoices
+    @invoices = Invoice.of_supplier(params[:supplier_id])
+    
+    respond_to do |format|
+      format.html # index.html.erb
+      format.xml
+    end
+  end
 end

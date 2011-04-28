@@ -1,0 +1,9 @@
+<invoices>
+  <% @invoice.each do |invoice| %>
+    <invoice>
+      <id><%= invoice.id %></id>
+      <invoice_no><%= invoice.name %></invoice_no>
+    </invoice>
+  <% end %>
+</invoices>
+
