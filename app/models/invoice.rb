@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110420103932
+# Schema version: 20110427172104
 #
 # Table name: invoices
 #
@@ -17,7 +17,6 @@
 #  discount        :decimal(, )
 #  netamt          :decimal(, )
 #  received_cnt    :integer(38)     default(0)
-#  sold_cnt        :integer(38)     default(0)
 #  created_by      :integer(38)
 #  updated_by      :integer(38)
 #  created_at      :datetime
@@ -34,5 +33,6 @@ class Invoice < ActiveRecord::Base
       where("isbn = :isbn AND sold_cnt<received_cnt", {:isbn => isbn}).
       order(:id).
       limit(1)
-    }
+    }  
+  scope :distinct_suppliers, :select => "DISTINCT supplier_id"
 end

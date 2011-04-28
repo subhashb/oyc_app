@@ -1,16 +1,16 @@
 # == Schema Information
-# Schema version: 20110421045221
+# Schema version: 20110427175306
 #
 # Table name: billitems
 #
 #  id         :integer(38)     not null, primary key
 #  isbn       :string(255)
-#  title      :string(255)
-#  mrp        :decimal(, )
 #  created_at :datetime
 #  updated_at :datetime
-#  invoice_id :integer(38)
 #  bill_id    :integer(38)
+#  conv_rate  :decimal(, )
+#  discount   :decimal(, )
+#  netamt     :decimal(, )
 #
 
 class Billitem < ActiveRecord::Base

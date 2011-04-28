@@ -27,7 +27,9 @@ class Titlereceipt < ActiveRecord::Base
   validate :isbn_should_be_part_of_invoice
   validate :excess_quantity
   
+  before_create :update_invoice_id
   after_create :mark_receipt_in_invoice
+  after_create :populate_isbn
   
   scope :of_invoice, lambda { |invoice_no, isbn|
       where("invoice_no = :invoice_no AND isbn = :isbn", {:invoice_no => invoice_no, :isbn => isbn}).
@@ -63,9 +65,41 @@ class Titlereceipt < ActiveRecord::Base
   private  
     def mark_receipt_in_invoice
       item = Invoice.find_by_invoice_no_and_isbn(invoice_no, isbn)
-      item.received_cnt = item.received_cnt + 1
-      item.save
-      
-      self.invoice_id = item.id
+      if item
+        item.received_cnt = item.received_cnt + 1
+        item.save
+      end
+    end
+    
+    def update_invoice_id
+      item = Invoice.find_by_invoice_no_and_isbn(invoice_no, isbn)
+      if item
+        self.invoice_id = item.id
+      end
+    end
+    
+    def populate_isbn
+      unless isbn.blank?
+        isbnItem = Isbn.find_by_isbn(isbn)
+        
+        if isbnItem.nil?
+          invoiceItem = Invoice.find_by_invoice_no_and_isbn(invoice_no, isbn)
+          
+          if invoiceItem
+            isbnItem = Isbn.new
+            isbnItem.isbn = invoiceItem.isbn
+            isbnItem.title = invoiceItem.title
+            isbnItem.author = invoiceItem.author
+            isbnItem.publisher = invoiceItem.publisher
+            isbnItem.grossamt = invoiceItem.grossamt
+            isbnItem.currency = invoiceItem.currency
+            isbnItem.save
+          else
+            isbnItem = Isbn.new
+            isbnItem.isbn = isbn
+            isbnItem.save
+          end
+        end
+      end
     end
 end

@@ -1,19 +1,24 @@
 # == Schema Information
-# Schema version: 20110420151737
+# Schema version: 20110427092601
 #
 # Table name: bills
 #
 #  id              :integer(38)     not null, primary key
 #  date_of_billing :datetime
-#  amount          :decimal(, )
+#  grossamt        :decimal(, )
 #  quantity        :integer(38)
 #  created_at      :datetime
 #  updated_at      :datetime
 #  created_by      :integer(38)
 #  updated_by      :integer(38)
+#  netamt          :decimal(, )
+#  discount        :decimal(, )
+#  bookfair_id     :integer(38)
 #
 
 class Bill < ActiveRecord::Base
+  belongs_to :bookfair
+  
   before_create :set_date_of_billing
   
   def set_date_of_billing

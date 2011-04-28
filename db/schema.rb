@@ -10,26 +10,29 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110426120952) do
+ActiveRecord::Schema.define(:version => 20110427175306) do
 
   create_table "billitems", :force => true do |t|
     t.string   "isbn"
-    t.string   "title"
-    t.decimal  "mrp"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "invoice_id", :precision => 38, :scale => 0
     t.integer  "bill_id",    :precision => 38, :scale => 0
+    t.decimal  "conv_rate"
+    t.decimal  "discount"
+    t.decimal  "netamt"
   end
 
   create_table "bills", :force => true do |t|
     t.datetime "date_of_billing"
-    t.decimal  "amount"
+    t.decimal  "grossamt"
     t.integer  "quantity",        :precision => 38, :scale => 0
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "created_by",      :precision => 38, :scale => 0
     t.integer  "updated_by",      :precision => 38, :scale => 0
+    t.decimal  "netamt"
+    t.decimal  "discount"
+    t.integer  "bookfair_id",     :precision => 38, :scale => 0
   end
 
   create_table "bookfairs", :force => true do |t|
@@ -57,12 +60,22 @@ ActiveRecord::Schema.define(:version => 20110426120952) do
     t.decimal  "discount"
     t.decimal  "netamt"
     t.integer  "received_cnt",    :precision => 38, :scale => 0, :default => 0
-    t.integer  "sold_cnt",        :precision => 38, :scale => 0, :default => 0
     t.integer  "created_by",      :precision => 38, :scale => 0
     t.integer  "updated_by",      :precision => 38, :scale => 0
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "supplier_id",     :precision => 38, :scale => 0
+  end
+
+  create_table "isbns", :force => true do |t|
+    t.string   "isbn"
+    t.string   "title"
+    t.string   "author"
+    t.string   "publisher"
+    t.decimal  "grossamt"
+    t.string   "currency"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "stockaudititems", :force => true do |t|

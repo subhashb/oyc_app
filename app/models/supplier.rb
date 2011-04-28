@@ -15,5 +15,12 @@
 
 class Supplier < ActiveRecord::Base
   has_many :invoices
+  
+  scope :in, lambda { |suppliers|
+    where(:id => suppliers)
+    }
+  scope :in_invoices, lambda {
+    where(:id => Invoice.distinct_suppliers.collect {|invoice| invoice.supplier_id})
+    }
 end
 

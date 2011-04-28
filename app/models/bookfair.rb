@@ -15,6 +15,8 @@
 #
 
 class Bookfair < ActiveRecord::Base
+  has_many :bills
+  
   scope :active, where(:active => 'Y')
   
   before_save :set_defaults

@@ -57,6 +57,18 @@ class BillsController < ApplicationController
   # PUT /bills/1.xml
   def update
     @bill = Bill.find(params[:id])
+    
+    @bill.grossamt = params[:bill][:grossamt]
+    @bill.netamt = params[:bill][:netamt]
+    @bill.discount = params[:bill][:discount]
+    @bill.quantity = params[:bill][:quantity]
+    @bill.bookfair_id = params[:bill][:bookfair_id]
+    
+    items = []
+    itemsArray = params[:bill][:items]
+    itemsArray.each do |item|
+      item = itemsArray[1][:isbn]
+    end
 
     respond_to do |format|
       if @bill.update_attributes(params[:bill])
