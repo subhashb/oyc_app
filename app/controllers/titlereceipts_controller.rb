@@ -44,8 +44,10 @@ class TitlereceiptsController < ApplicationController
     @titlereceipt.isbn  = params[:titlereceipt][:isbn]
     @titlereceipt.created_by = params[:titlereceipt][:user_id]
     @titlereceipt.modified_by = params[:titlereceipt][:user_id]
-    @titlereceipt.invoice_no = Invoice.find_by_supplier_id_and_isbn(params[:titlereceipt][:supplier_id],@titlereceipt.isbn).invoice_no
-
+    @titlereceipt.supplier_id = params[:titlereceipt][:supplier_id]
+    @titlereceipt.invoice_no = params[:titlereceipt][:invoice_no]
+    @titlereceipt.box_no = params[:titlereceipt][:box_no]
+    
     respond_to do |format|
       if @titlereceipt.save
         format.html { redirect_to(@titlereceipt, :notice => 'Titlereceipt was successfully created.') }

@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110420145554
+# Schema version: 20110428122205
 #
 # Table name: titlereceipts
 #
@@ -13,6 +13,7 @@
 #  updated_at  :datetime
 #  invoice_id  :integer(38)
 #  box_no      :integer(38)
+#  supplier_id :integer(38)
 #
 
 class Titlereceipt < ActiveRecord::Base
@@ -39,7 +40,7 @@ class Titlereceipt < ActiveRecord::Base
   
   def invoice_no_should_exist
     unless invoice_no.blank?
-      invoice = Invoice.find_by_invoice_no(invoice_no)
+      invoice = Invoice.find_by_supplier_id_and_invoice_no(supplier_id, invoice_no)
       if invoice.nil?
         errors.add(:invoice_no, " is invalid!")
       end
@@ -48,7 +49,7 @@ class Titlereceipt < ActiveRecord::Base
   
   def isbn_should_be_part_of_invoice
     unless isbn.blank?
-      item = Invoice.find_by_invoice_no_and_isbn(invoice_no, isbn)
+      item = Invoice.find_by_supplier_id_and_invoice_no_and_isbn(supplier_id, invoice_no, isbn)
       if item.nil?
         errors.add(:isbn, " is invalid!");
       end
@@ -56,15 +57,17 @@ class Titlereceipt < ActiveRecord::Base
   end
   
   def excess_quantity
-    invoice = Invoice.find_by_invoice_no_and_isbn(invoice_no, isbn)
-    if invoice.received_cnt == invoice.quantity
-      errors.add(:isbn, "'s quantity has already been received!")
+    invoice = Invoice.find_by_supplier_id_and_invoice_no_and_isbn(supplier_id, invoice_no, isbn)
+    if invoice
+      if invoice.received_cnt == invoice.quantity
+        errors.add(:isbn, "'s quantity has already been received!")
+      end
     end
   end
   
   private  
     def mark_receipt_in_invoice
-      item = Invoice.find_by_invoice_no_and_isbn(invoice_no, isbn)
+      item = Invoice.find_by_supplier_id_and_invoice_no_and_isbn(supplier_id, invoice_no, isbn)
       if item
         item.received_cnt = item.received_cnt + 1
         item.save
@@ -72,7 +75,7 @@ class Titlereceipt < ActiveRecord::Base
     end
     
     def update_invoice_id
-      item = Invoice.find_by_invoice_no_and_isbn(invoice_no, isbn)
+      item = Invoice.find_by_supplier_id_and_invoice_no_and_isbn(supplier_id, invoice_no, isbn)
       if item
         self.invoice_id = item.id
       end
@@ -83,7 +86,7 @@ class Titlereceipt < ActiveRecord::Base
         isbnItem = Isbn.find_by_isbn(isbn)
         
         if isbnItem.nil?
-          invoiceItem = Invoice.find_by_invoice_no_and_isbn(invoice_no, isbn)
+          invoiceItem = Invoice.find_by_supplier_id_and_invoice_no_and_isbn(supplier_id, invoice_no, isbn)
           
           if invoiceItem
             isbnItem = Isbn.new

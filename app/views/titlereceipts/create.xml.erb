@@ -2,7 +2,7 @@
   <box_no><%= @titlereceipt.box_no %></box_no>
   <invoice_no><%= @titlereceipt.invoice_no %></invoice_no>
   <isbn><%= @titlereceipt.isbn %></isbn>
-  <title><%= title_for_isbn(@titlereceipt.invoice_no, @titlereceipt.isbn) %></title>
+  <title><%= title_for_isbn(@titlereceipt.isbn) %></title>
   <% if @titlereceipt.errors %>
     <errors>
       <% @titlereceipt.errors.full_messages.each do |msg| %>

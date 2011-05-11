@@ -90,8 +90,8 @@ class InvoicesController < ApplicationController
     end
   end
   
-  def fetch_invoices
-    @invoices = Invoice.of_supplier(params[:supplier_id])
+  def fetch_invoices_for_supplier
+    @invoices = Invoice.of_supplier(params[:supplier_id]).distinct_invoices
     
     respond_to do |format|
       format.html # index.html.erb

@@ -1,8 +1,7 @@
 module TitlesHelper
-  def title_of_isbn(isbn)
+  def title_for_isbn(isbn)
     if isbn
-      #Title.find_by_isbn(isbn).title
-      Invoice.find_by_isbn(isbn).title
+      Isbn.find_by_isbn(isbn).title
     else
       "No Title Found"
     end

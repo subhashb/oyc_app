@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110427175306
+# Schema version: 20110428173957
 #
 # Table name: billitems
 #
@@ -11,55 +11,52 @@
 #  conv_rate  :decimal(, )
 #  discount   :decimal(, )
 #  netamt     :decimal(, )
+#  title_id   :integer(38)
 #
 
 class Billitem < ActiveRecord::Base
-  belongs_to :invoice
-  
-  before_validation             :populate_data
+  belongs_to :bill
   
   validates :isbn,              :presence => true
+  validates :bill_id,           :presence => true
   
-  validate                      :item_exists_in_invoices
-  validate                      :item_was_received
+  validate                      :item_exists
   
+  after_validation              :populate_data
   after_create                  :update_sold_cnt
   
-  def populate_data
-    item = Invoice.next_to_sell(isbn).first
-    if item
-      self.title = item.title
-      self.mrp = item.grossamt
-      self.invoice_id = item.id
-    else
-      errors.add(:isbn, " copies have already been sold out!");
-    end
-  end
-  
-  def item_exists_in_invoices
-    invoices = Invoice.find_by_isbn(isbn)
-    if invoices.nil?
-      errors.clear
-      errors.add(:isbn, " was not part of stock!")
-    end
-  end
-  
-  def item_was_received
-    unless invoice_id.blank?
-      invoice_no = Invoice.find(invoice_id).invoice_no
-      title = Titlereceipt.find_by_invoice_no_and_isbn(invoice_no, isbn)
+  def item_exists
+    if bill
+      title = Title.find_by_bookfair_id_and_isbn(bill.bookfair_id, isbn)
       if title.nil?
-        errors.add(:isbn, " was not received!")
+        errors.clear
+        errors.add(:isbn, " was not part of stock!")
+      end
+    end
+  end
+  
+  def populate_data
+    if bill
+      item = Title.next_to_sell(bill.bookfair_id, isbn).first
+      if item
+        self.title_id = item.id
+      else
+        errors.clear
+        errors.add(:isbn, " copies have already been sold out!");
       end
     end
   end
   
   private
     def update_sold_cnt
-      invoice = Invoice.find(invoice_id)
-      if invoice
-        invoice.sold_cnt = invoice.sold_cnt + 1
-        invoice.save
+      if bill
+        title = Title.find_by_bookfair_id_and_isbn(bill.bookfair_id, isbn)
+        if title
+          title.sold_cnt = title.sold_cnt + 1
+          title.save
+        else
+          errors.add(:isbn, " - Unable to update Sold Count!")
+        end
       end
     end
 end

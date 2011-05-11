@@ -26,16 +26,12 @@
 
 class Invoice < ActiveRecord::Base
   belongs_to  :supplier
-  has_many    :billitems
   has_many    :titlereceipts
+  has_many    :titles
   
-  scope :next_to_sell, lambda { |isbn|
-      where("isbn = :isbn AND sold_cnt<received_cnt", {:isbn => isbn}).
-      order(:id).
-      limit(1)
-    }  
-  scope :distinct_suppliers, :select => "DISTINCT supplier_id"
+  scope :distinct_suppliers, :select => "DISTINCT supplier_id"  
   scope :of_supplier, lambda { |supplier_id|
       where(:supplier_id => supplier_id)
     }
+  scope :distinct_invoices, :select => "DISTINCT invoice_no"
 end

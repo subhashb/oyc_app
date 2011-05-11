@@ -8,11 +8,11 @@ OycApp::Application.routes.draw do
   resources :bills
   resources :invoices do
     get 'fetch_suppliers', :on => :collection
-    get 'fetch_invoices_for_supplier', :on => :collection
   end
   resources :titlereceipts
   
   match 'titles/fetch_by_isbn/:isbn' => 'titles#fetch_by_isbn'
+  match 'invoices/fetch_invoices_for_supplier/:supplier_id' => 'invoices#fetch_invoices_for_supplier'
 
   match '/dashboard' => 'dashboard#show'
 

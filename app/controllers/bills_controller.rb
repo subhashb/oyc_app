@@ -25,6 +25,7 @@ class BillsController < ApplicationController
   # GET /bills/new.xml
   def new
     @bill = Bill.new
+    5.times { @bill.billitems.build }
 
     respond_to do |format|
       format.html # new.html.erb
@@ -35,6 +36,12 @@ class BillsController < ApplicationController
   # GET /bills/1/edit
   def edit
     @bill = Bill.find(params[:id])
+    5.times { @bill.billitems.build }
+    
+    respond_to do |format|
+      format.html # new.html.erb
+      format.xml  { render :xml => @bill }
+    end
   end
 
   # POST /bills
@@ -67,11 +74,22 @@ class BillsController < ApplicationController
     items = []
     itemsArray = params[:bill][:items]
     itemsArray.each do |item|
-      item = itemsArray[1][:isbn]
+      isbn = Isbn.find_by_isbn(item[1][:isbn])
+      if isbn
+        billitem = Billitem.new
+        billitem.isbn = isbn.isbn
+        billitem.bill_id = @bill.id
+        #TODO Get Converation Rates
+        billitem.conv_rate = 1
+        billitem.discount = @bill.discount
+        grosslocalamt = isbn.grossamt * billitem.conv_rate
+        billitem.netamt = (grosslocalamt) - (grosslocalamt * billitem.discount / 100)
+        billitem.save
+      end
     end
 
     respond_to do |format|
-      if @bill.update_attributes(params[:bill])
+      if @bill.save
         format.html { redirect_to(@bill, :notice => 'Bill was successfully updated.') }
         format.xml  { head :ok }
       else

@@ -17,13 +17,23 @@
 #
 
 class Bill < ActiveRecord::Base
-  belongs_to :bookfair
+  belongs_to  :bookfair
   
-  before_create :set_date_of_billing
+  has_many    :billitems, :dependent => :destroy
+  accepts_nested_attributes_for :billitems, :allow_destroy => :true, :reject_if => lambda { |a| a[:isbn].blank? }
   
-  def set_date_of_billing
-    if date_of_billing.blank?
-      self.date_of_billing = Time.now
+  validates :bookfair_id,             :presence => true
+
+  before_create                       :set_date_of_billing
+  before_create                       :calculate_amounts
+  
+  private
+    def set_date_of_billing
+      if date_of_billing.blank?
+        self.date_of_billing = Time.now
+      end
     end
-  end
+    
+    def calculate_amounts
+    end
 end

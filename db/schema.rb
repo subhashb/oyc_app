@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110427175306) do
+ActiveRecord::Schema.define(:version => 20110428173957) do
 
   create_table "billitems", :force => true do |t|
     t.string   "isbn"
@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(:version => 20110427175306) do
     t.decimal  "conv_rate"
     t.decimal  "discount"
     t.decimal  "netamt"
+    t.integer  "title_id",   :precision => 38, :scale => 0
   end
 
   create_table "bills", :force => true do |t|
@@ -97,18 +98,11 @@ ActiveRecord::Schema.define(:version => 20110427175306) do
     t.datetime "updated_at"
     t.integer  "invoice_id",  :precision => 38, :scale => 0
     t.integer  "box_no",      :precision => 38, :scale => 0
+    t.integer  "supplier_id", :precision => 38, :scale => 0
   end
 
   create_table "titles", :force => true do |t|
     t.string   "isbn"
-    t.string   "title"
-    t.string   "publisher"
-    t.string   "author"
-    t.decimal  "grossamt"
-    t.string   "currency"
-    t.decimal  "conv_rate"
-    t.decimal  "discount"
-    t.decimal  "netamt"
     t.integer  "bookfair_id", :precision => 38, :scale => 0
     t.integer  "copies_cnt",  :precision => 38, :scale => 0
     t.integer  "sold_cnt",    :precision => 38, :scale => 0
@@ -116,6 +110,7 @@ ActiveRecord::Schema.define(:version => 20110427175306) do
     t.integer  "modified_by", :precision => 38, :scale => 0
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "invoice_id",  :precision => 38, :scale => 0
   end
 
   add_synonym "authentications", "authentications@link_opac", :force => true

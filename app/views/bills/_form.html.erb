@@ -16,13 +16,33 @@
     <%= f.date_select :date_of_billing %>
   </div>
   <div class="field">
-    <%= f.label :amount %><br />
-    <%= f.text_field :amount %>
+    <%= f.label :grossamt %><br />
+    <%= f.text_field :grossamt %>
+  </div>
+  <div class="field">
+    <%= f.label :netamt %><br />
+    <%= f.text_field :netamt %>
   </div>
   <div class="field">
     <%= f.label :quantity %><br />
     <%= f.text_field :quantity %>
   </div>
+  <div class="field">
+    <%= f.label :discount %><br />
+    <%= f.text_field :discount %>
+  </div>
+  <div class="field">
+    <%= f.label :bookfair_id %><br />
+    <%= f.text_field :bookfair_id %>
+  </div>
+  
+	<table id='billitems_table' style="width:20%">
+		<tr><th>ISBN</th></tr>
+		<%= f.fields_for :billitems do |builder| -%>
+			<%= render 'billitem_fields', :f => builder %>
+		<% end -%>
+	</table>
+		
   <div class="actions">
     <%= f.submit %>
   </div>
