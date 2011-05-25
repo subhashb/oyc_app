@@ -1,0 +1,12 @@
+<title>
+ <isbn><%= @title.isbn %></isbn>
+ <title><%= @title.isbnitem.title %></title>
+ <mrp><%= @title.isbnitem.grossamt %></mrp>
+ <% if @title.errors %>
+   <errors>
+     <% @title.errors.full_messages.each do |msg| %>
+       <message><%= msg %></message>
+     <% end %>
+   </errors>
+ <% end %>
+</title>

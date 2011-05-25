@@ -86,7 +86,7 @@ class TitlesController < ApplicationController
     
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @title, :dasherize => false }
+      format.xml
     end
   end
 end

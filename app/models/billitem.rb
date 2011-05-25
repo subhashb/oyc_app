@@ -19,7 +19,6 @@ class Billitem < ActiveRecord::Base
   belongs_to :bill
   
   validates :isbn,              :presence => true
-  #validates :bill_id,           :presence => true      # Bill ID will be updated automatically
   
   validate                      :item_exists
   

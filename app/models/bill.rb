@@ -22,7 +22,6 @@ class Bill < ActiveRecord::Base
   accepts_nested_attributes_for :billitems, :allow_destroy => :true, :reject_if => lambda { |a| a[:isbn].blank? }
   
   validates :bookfair_id,             :presence => true
-  validates :date_of_billing,         :presence => true
 
   before_create                       :set_defaults
   
@@ -31,8 +30,10 @@ class Bill < ActiveRecord::Base
       if date_of_billing.blank?
         self.date_of_billing = Time.now
       end
-      self.quantity = 0
-      self.grossamt = 0.0
-      self.netamt = 0.0
+      if self.quantity.blank?
+		    self.quantity = 0
+		    self.grossamt = 0.0
+		    self.netamt = 0.0
+	    end      
     end
 end
