@@ -29,9 +29,16 @@ class Invoice < ActiveRecord::Base
   has_many    :titlereceipts
   has_many    :titles
   
+  before_create :make_uppercase
+  
   scope :distinct_suppliers, :select => "DISTINCT supplier_id"  
   scope :of_supplier, lambda { |supplier_id|
       where(:supplier_id => supplier_id)
     }
   scope :distinct_invoices, :select => "DISTINCT invoice_no"
+  
+  private 
+    def make_uppercase
+      self.invoice_no = self.invoice_no.upcase
+    end
 end

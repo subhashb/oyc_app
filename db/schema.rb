@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110428173957) do
+ActiveRecord::Schema.define(:version => 20110525064617) do
 
   create_table "billitems", :force => true do |t|
     t.string   "isbn"
@@ -21,19 +21,19 @@ ActiveRecord::Schema.define(:version => 20110428173957) do
     t.decimal  "discount"
     t.decimal  "netamt"
     t.integer  "title_id",   :precision => 38, :scale => 0
+    t.decimal  "grossamt"
   end
 
   create_table "bills", :force => true do |t|
     t.datetime "date_of_billing"
-    t.decimal  "grossamt"
-    t.integer  "quantity",        :precision => 38, :scale => 0
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "created_by",      :precision => 38, :scale => 0
     t.integer  "updated_by",      :precision => 38, :scale => 0
+    t.integer  "bookfair_id",     :precision => 38, :scale => 0, :null => false
+    t.decimal  "grossamt"
+    t.integer  "quantity",        :precision => 38, :scale => 0
     t.decimal  "netamt"
-    t.decimal  "discount"
-    t.integer  "bookfair_id",     :precision => 38, :scale => 0
   end
 
   create_table "bookfairs", :force => true do |t|
@@ -112,6 +112,8 @@ ActiveRecord::Schema.define(:version => 20110428173957) do
     t.datetime "updated_at"
     t.integer  "invoice_id",  :precision => 38, :scale => 0
   end
+
+  add_index "titles", ["bookfair_id", "isbn", "invoice_id"], :name => "titles_fairitem_unq", :unique => true
 
   add_synonym "authentications", "authentications@link_opac", :force => true
   add_synonym "users", "users@link_opac", :force => true

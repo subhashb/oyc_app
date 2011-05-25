@@ -20,7 +20,7 @@ class Title < ActiveRecord::Base
   has_one :isbnitem, :foreign_key => "isbn", :primary_key => "isbn", :class_name => "Isbn"
   
   scope :next_to_sell, lambda { |bookfair_id, isbn|
-      where("bookfair_id = :bookfair_id AND isbn = :isbn AND sold_cnt<received_cnt", {:bookfair_id => bookfair_id, :isbn => isbn}).
+      where("bookfair_id = :bookfair_id AND isbn = :isbn AND sold_cnt<copies_cnt", {:bookfair_id => bookfair_id, :isbn => isbn}).
       order(:id).
       limit(1)
     } 

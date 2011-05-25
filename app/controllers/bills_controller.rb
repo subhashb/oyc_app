@@ -65,31 +65,8 @@ class BillsController < ApplicationController
   def update
     @bill = Bill.find(params[:id])
     
-    @bill.grossamt = params[:bill][:grossamt]
-    @bill.netamt = params[:bill][:netamt]
-    @bill.discount = params[:bill][:discount]
-    @bill.quantity = params[:bill][:quantity]
-    @bill.bookfair_id = params[:bill][:bookfair_id]
-    
-    items = []
-    itemsArray = params[:bill][:items]
-    itemsArray.each do |item|
-      isbn = Isbn.find_by_isbn(item[1][:isbn])
-      if isbn
-        billitem = Billitem.new
-        billitem.isbn = isbn.isbn
-        billitem.bill_id = @bill.id
-        #TODO Get Converation Rates
-        billitem.conv_rate = 1
-        billitem.discount = @bill.discount
-        grosslocalamt = isbn.grossamt * billitem.conv_rate
-        billitem.netamt = (grosslocalamt) - (grosslocalamt * billitem.discount / 100)
-        billitem.save
-      end
-    end
-
     respond_to do |format|
-      if @bill.save
+      if @bill.update_attributes(params[:bill])
         format.html { redirect_to(@bill, :notice => 'Bill was successfully updated.') }
         format.xml  { head :ok }
       else

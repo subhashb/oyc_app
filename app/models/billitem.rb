@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110428173957
+# Schema version: 20110513175303
 #
 # Table name: billitems
 #
@@ -12,18 +12,20 @@
 #  discount   :decimal(, )
 #  netamt     :decimal(, )
 #  title_id   :integer(38)
+#  grossamt   :decimal(, )
 #
 
 class Billitem < ActiveRecord::Base
   belongs_to :bill
   
   validates :isbn,              :presence => true
-  validates :bill_id,           :presence => true
+  #validates :bill_id,           :presence => true      # Bill ID will be updated automatically
   
   validate                      :item_exists
   
-  after_validation              :populate_data
+  before_create                 :populate_data
   after_create                  :update_sold_cnt
+  after_create                  :update_bill_totals
   
   def item_exists
     if bill
@@ -40,6 +42,15 @@ class Billitem < ActiveRecord::Base
       item = Title.next_to_sell(bill.bookfair_id, isbn).first
       if item
         self.title_id = item.id
+        isbnItem = Isbn.find_by_isbn(isbn)
+        if isbnItem
+          self.grossamt = isbnItem.grossamt
+          self.conv_rate = get_conv_rate_for(isbnItem.currency)
+          grosslocalamt = grossamt * conv_rate
+          self.netamt = (grosslocalamt) - (grosslocalamt * discount / 100)
+        else
+          errors.add(:isbn, " not found!");
+        end
       else
         errors.clear
         errors.add(:isbn, " copies have already been sold out!");
@@ -58,5 +69,33 @@ class Billitem < ActiveRecord::Base
           errors.add(:isbn, " - Unable to update Sold Count!")
         end
       end
+    end
+    
+    def update_bill_totals
+      if bill
+        bill.quantity = bill.quantity + 1
+        bill.grossamt = bill.grossamt + grossamt
+        bill.netamt = bill.netamt + netamt
+        
+        unless bill.save
+          puts "Could not save Bill because - " + bill.errors.to_s
+        end
+      end
+    end
+    
+    def get_conv_rate_for(currency)
+      case currency
+        when "USD"
+          rate = 46.80
+        when "GBP"
+          rate = 76.90
+        when "EUR"
+          rate = 67.00
+        when "INR"
+          rate = 1.00
+        else
+          rate = -1.00
+        end
+      return rate
     end
 end
