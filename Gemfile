@@ -15,6 +15,8 @@ gem 'omniauth'
 gem 'activerecord-oracle_enhanced-adapter'
 gem 'ruby-oci8'
 
+gem 'rack-methodoverride-with-params'
+
 group :development do
   gem 'rspec-rails'
   gem 'annotate-models', '1.0.4'
