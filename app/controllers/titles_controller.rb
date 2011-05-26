@@ -85,8 +85,13 @@ class TitlesController < ApplicationController
     @title = Title.find_by_isbn(params[:isbn])
     
     respond_to do |format|
-      format.html # show.html.erb
-      format.xml
+      if @title
+        format.html # show.html.erb
+        format.xml
+      else
+        format.html { render :action => "index" }
+        format.xml { render :nothing => true, :status => :not_found }
+      end
     end
   end
 end
