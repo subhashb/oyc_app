@@ -10,6 +10,11 @@ describe BillsController do
     @mock_bill ||= mock_model(Bill, stubs).as_null_object
   end
 
+  before (:each) do
+    @user = Factory.create(:user)
+    sign_in @user
+  end
+  
   describe "GET index" do
     it "assigns all bills as @bills" do
       Bill.stub(:all) { [mock_bill] }

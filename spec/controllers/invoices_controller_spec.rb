@@ -10,6 +10,11 @@ describe InvoicesController do
     @mock_invoice ||= mock_model(Invoice, stubs).as_null_object
   end
 
+  before (:each) do
+    @user = Factory.create(:user)
+    sign_in @user
+  end
+  
   describe "GET index" do
     it "assigns all invoices as @invoices" do
       Invoice.stub(:all) { [mock_invoice] }

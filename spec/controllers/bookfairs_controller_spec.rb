@@ -10,6 +10,11 @@ describe BookfairsController do
     @mock_bookfair ||= mock_model(Bookfair, stubs).as_null_object
   end
 
+  before (:each) do
+    @user = Factory.create(:user)
+    sign_in @user
+  end
+  
   describe "GET index" do
     it "assigns all bookfairs as @bookfairs" do
       Bookfair.stub(:all) { [mock_bookfair] }

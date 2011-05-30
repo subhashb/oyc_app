@@ -10,6 +10,11 @@ describe TitlesController do
     @mock_title ||= mock_model(Title, stubs).as_null_object
   end
 
+  before (:each) do
+    @user = Factory.create(:user)
+    sign_in @user
+  end
+  
   describe "GET index" do
     it "assigns all titles as @titles" do
       Title.stub(:all) { [mock_title] }

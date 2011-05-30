@@ -41,8 +41,7 @@ class BillitemsController < ApplicationController
   # POST /billitems.xml
   def create
     @billitem = Billitem.new
-    @billitem.isbn = params[:billitem][:isbn]
-
+    
     respond_to do |format|
       if @billitem.save
         format.html { redirect_to(@billitem, :notice => 'Billitem was successfully created.') }

@@ -17,12 +17,13 @@ gem 'ruby-oci8'
 
 group :development do
   gem 'rspec-rails'
+  gem 'webrat', '0.7.1'
   gem 'annotate-models', '1.0.4'
 end
 
 group :test do
   gem 'rspec'
-  gem 'spork', '0.8.4'
+  gem 'spork', '0.9.0.rc7'
   gem 'webrat', '0.7.1'
   gem 'factory_girl_rails', '1.0'
 end
