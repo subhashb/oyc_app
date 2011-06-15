@@ -73,8 +73,15 @@ class Billitem < ActiveRecord::Base
     def update_bill_totals
       if bill
         bill.quantity = bill.quantity + 1
-        bill.grossamt = bill.grossamt + grossamt
-        bill.netamt = bill.netamt + netamt
+        if bill.grossamt.nil?
+          bill.grossamt = grossamt
+        else
+          bill.grossamt = bill.grossamt + grossamt
+        
+        if bill.netamt.nil?
+          bill.netamt = netamt
+        else
+          bill.netamt = bill.netamt + netamt
         
         unless bill.save
           puts "Could not save Bill because - " + bill.errors.to_s
