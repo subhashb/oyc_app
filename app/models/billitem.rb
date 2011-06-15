@@ -77,12 +77,14 @@ class Billitem < ActiveRecord::Base
           bill.grossamt = grossamt
         else
           bill.grossamt = bill.grossamt + grossamt
+        end
         
         if bill.netamt.nil?
           bill.netamt = netamt
         else
           bill.netamt = bill.netamt + netamt
-        
+        end
+      
         unless bill.save
           puts "Could not save Bill because - " + bill.errors.to_s
         end
